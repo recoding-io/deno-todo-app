@@ -21,3 +21,44 @@ export const addList = async (ctx:any) => {
         msg: 'Data has been Added'
     };
 };
+
+export const deleteList = async (ctx:any) => {
+    const listId = await ctx.params.listId;
+    const deleteList = await listClass.deleteList(listId);
+    if(deleteList == true){
+        ctx.response.status = 200;
+        ctx.response.body = {
+            msg: 'List has been deleted'
+        }
+    }
+    else{
+        ctx.response.status = 404;
+        ctx.response.body = {
+            msg: 'List not found'
+        }
+    }
+}
+
+export const updateList = async (ctx:any) => {
+    const listId = await ctx.params.listId;
+    const updatedBody = await ctx.request.body({
+        contentTypes: {
+            text: ["application/x-www-form-urlencoded"]
+        }
+    });
+    const listTitle = updatedBody.value.get("title");
+    const isCompleted = updatedBody.value.get("completed");
+    const isListUpdated = await listClass.editList({listTitle,isCompleted},listId);
+    if(isListUpdated == true){
+        ctx.response.status = 200;
+        ctx.response.body = {
+            msg: 'List has been updated'
+        }
+    }
+    else{
+        ctx.response.status = 404;
+        ctx.response.body = {
+            msg:"List not found"
+        }
+    }
+}

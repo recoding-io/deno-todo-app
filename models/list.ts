@@ -21,6 +21,35 @@ class ListClass{
         return createList;
     }
 
+    deleteList = async (listId: string) => {
+        const isListIdDelete = await this.listRepo.deleteOne({
+            _id: {$oid: listId}
+        });
+        if(isListIdDelete){
+            return true
+        }
+        else{
+            return false
+        }
+    }
+
+    editList = async (inputListDetails: List, listId: string) => {
+        const listTitle = inputListDetails.listTitle;
+        const isCompleted = inputListDetails.isCompleted;
+        const {matchedCount, modifiedCount, upsertedId} = await this.listRepo.updateOne(
+            {_id: {$oid: listId}},
+            {$set: {title: listTitle,completed: isCompleted}}
+        );
+
+        if(matchedCount !== 0){
+            return true
+        }
+        else{
+            return false
+        }
+
+    }
+
 }
 
 export default ListClass;
