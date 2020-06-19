@@ -21,5 +21,5 @@ deno run --allow-net --allow-read --allow-write --allow-plugin --unstable app.ts
 
 ## Full step by step tutorial
 
-* (Create To Do List App using Deno, Oak, MongoDB and View Engine - Part-1)["https://youtu.be/xADFwCF6ECA"]
-* (Create To Do List App using Deno, Oak, MongoDB and View Engine - Part-2)["https://youtu.be/dRamdHD2UWU"]
+* [Create To Do List App using Deno, Oak, MongoDB and View Engine - Part-1]("https://youtu.be/xADFwCF6ECA")
+* [Create To Do List App using Deno, Oak, MongoDB and View Engine - Part-2]("https://youtu.be/dRamdHD2UWU")
