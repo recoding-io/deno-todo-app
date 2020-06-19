@@ -1,9 +1,23 @@
 // Oak https://deno.land/x/oak/mod.ts
 
-import {Application} from 'https://deno.land/x/oak/mod.ts';
+import {Application ,send} from 'https://deno.land/x/oak/mod.ts';
+import {
+    viewEngine,
+    engineFactory,
+    adapterFactory
+} from 'https://deno.land/x/view_engine@v1.1.1/mod.ts';
+
 import ListRoute from './routes/list.ts';
 
+const ejsEngine = engineFactory.getEjsEngine();
+const oakAdapter = adapterFactory.getOakAdapter();
+
 const app = new Application();
+
+app.use(viewEngine(oakAdapter,ejsEngine,{
+    viewRoot: './views',
+    viewExt: '.ejs'
+}));
 
 app.use(async (ctx,next) => {
     await next();
@@ -21,6 +35,13 @@ app.use(async (ctx,next)=> {
 app.use(ListRoute.routes());
 
 app.use(ListRoute.allowedMethods());
+
+app.use(async (ctx,next) => {
+    await send(ctx, ctx.request.url.pathname,{
+        root: `${Deno.cwd()}/static`
+    });
+    next();
+})
 
 console.log('Our App is listening to Port 800');
 await app.listen({port: 8000});

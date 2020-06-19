@@ -4,7 +4,7 @@ const listClass = new ListClass();
 
 export const allList = async (ctx:any) => {
     const allData = await listClass.getAllList()
-    ctx.response.body = allData; 
+    ctx.render('index',{datas: allData});
 }
 
 export const addList = async (ctx:any) => {

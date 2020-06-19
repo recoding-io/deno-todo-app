@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1 style="text-align: center;">TO-DO APP</h1>
+        <div class="input-header">
+            <input type="text" name="title">
+            <button type="submit">Add</button>
+        </div>
+        <div class="list-section">
+            <ul>
+                <% for(data of datas) { %>
+                    <li>
+                        <label class="list-checkbox">
+                            <%= data.title %>
+                            <input id=<%= data._id.$oid %> type="checkbox">
+                            <span class="checkmark"></span>
+                        </label>
+                        </li>
+                    <% } %>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
