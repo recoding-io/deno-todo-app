@@ -47,7 +47,15 @@ export const updateList = async (ctx:any) => {
         }
     });
     const listTitle = updatedBody.value.get("title");
-    const isCompleted = updatedBody.value.get("completed");
+    var isCompleted = updatedBody.value.get("completed");
+    switch(isCompleted){
+        case "true":
+            isCompleted = true
+            break;
+        case "false":
+            isCompleted = false
+            break;
+    }
     const isListUpdated = await listClass.editList({listTitle,isCompleted},listId);
     if(isListUpdated == true){
         ctx.response.status = 200;
